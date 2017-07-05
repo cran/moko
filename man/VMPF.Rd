@@ -25,13 +25,13 @@ model@j} where \code{model@m} are the number of objectives and
 
 \item{quiet}{Logical indicating the verbosity of the routine,}
 
-\item{control}{An optional list of control parameters that controlls the
+\item{control}{An optional list of control parameters that controls the
 optimization algorithm. One can control: \describe{
 \item{\code{popsize}}{(default: \code{200});}
 \item{\code{generations}}{(default: \code{30});}
 \item{\code{cdist}}{(default: \code{1/model@d});}
 \item{\code{mprob}}{(default: \code{15});}
-\item{\code{mdist}}{(defult: \code{20}).}
+\item{\code{mdist}}{(default: \code{20}).}
 }}
 
 \item{modelcontrol}{An optional list of control parameters to the
@@ -65,4 +65,3 @@ model <- VMPF(model, fun, nsteps, quiet = FALSE)
 plot(nowacki_beam_tps$set)
 points(ps(model@response[which(model@feasible),model@objective])$set, col = 'green', pch = 19)
 }
-

@@ -11,7 +11,7 @@ ps(y, minimization = TRUE, light.return = FALSE)
 
 \item{minimization}{logical representing if the set is to be minimized or not}
 
-\item{light.return}{logical indicating if the indexes should be writen on the
+\item{light.return}{logical indicating if the indexes should be written on the
 'ps' object}
 }
 \value{
@@ -26,4 +26,3 @@ aps <- ps(matrix(rnorm(1:1000),ncol=2))
 print(aps)
 
 }
-

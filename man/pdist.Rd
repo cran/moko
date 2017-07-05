@@ -2,7 +2,7 @@
 % Please edit documentation in R/ps_metrics.R
 \name{pdist}
 \alias{pdist}
-\title{Distance betwen vector and matrix}
+\title{Distance between vector and matrix}
 \usage{
 pdist(point, set, method = "manhattan")
 }
@@ -21,4 +21,3 @@ numeric value indicating the minimum distance between \code{point} and \code{set
 This function computes and returns the minimum distance between a vector and
 a matrix
 }
-

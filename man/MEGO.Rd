@@ -30,12 +30,12 @@ model@j} where \code{model@m} are the number of objectives and
 \item{control}{An optional list of control parameters, some of them passed to
 the \code{\link[DiceOptim]{EI}} function. One can control:
   \describe{
-   \item{\code{minimization}}{logical specifying if EI is used in minimiziation or in maximization
+   \item{\code{minimization}}{logical specifying if EI is used in minimization or in maximization
    (default: \code{TRUE})}
    \item{\code{plugin}}{optional scalar, if not provided, the minimum (or maximum) of the current
     feasible observations. If there isn't any feasible design plugin is set to \code{NA} and the
-    algorithm returns the value of the probabilty of constraints be met.}
-   \item{\code{envir}}{optional enviroment specifying where to assign intermediate values.
+    algorithm returns the value of the probability of constraints be met.}
+   \item{\code{envir}}{optional environment specifying where to assign intermediate values.
     Default: \code{NULL}.}
   }}
 
@@ -158,4 +158,3 @@ Knowles, J. (2006). ParEGO: a hybrid algorithm with on-line
   landscape approximation for expensive multiobjective optimization problems.
   \emph{IEEE Transactions on Evolutionary Computation}, 10(1), 50-66.
 }
-

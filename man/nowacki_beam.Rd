@@ -9,10 +9,10 @@ nowacki_beam(x, g = c(5, 240, 120, 10, 2), l = 1500, F = 5000,
   c(20, 250)))
 }
 \arguments{
-\item{x}{vector of length 2 correspon the normalized beath and height of the
+\item{x}{vector of length 2 corresponds the normalized breadth and height of the
 beam}
 
-\item{g}{vector of lenght 5 containing the upper limits of each constraint}
+\item{g}{vector of length 5 containing the upper limits of each constraint}
 
 \item{l}{numeric length of the beam}
 
@@ -33,7 +33,7 @@ vector of objective and constrain responses
 \description{
 This function is a variation of the classic multi-objective optimization
 problem (NOWACKI, 1980). In this problem the aim is to design a tip loaded
-cantilever eam for minimum cross-sectional aera and lowest bending stress
+cantilever beam for minimum cross-sectional area and lowest bending stress
 subject to a number of constraints.
 }
 \examples{
@@ -49,4 +49,3 @@ Forrester, A., Sobester, A., & Keane, A. (2008).
   \emph{Engineering design via surrogate modelling: a practical guide.} John
   Wiley & Sons.
 }
-

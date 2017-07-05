@@ -18,6 +18,7 @@ A S4 class of multiple Kriging models
 \itemize{
 \item \code{show}: Custom print for \code{mkm} objects
 }}
+
 \section{Slots}{
 
 \describe{

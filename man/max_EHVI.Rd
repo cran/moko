@@ -23,7 +23,7 @@ the \code{\link[GPareto]{crit_EHI}} function. One can control:
 objectives (\code{TRUE}, by default) or maximizing all objectives
 (\code{FALSE}). Mixed optimization is not currently accepted, if the user
 needs it, the cost functions should be modified prior Kriging modeling
-(i.e. inverting or mutilpying the optut by \code{-1}).}
+(i.e. inverting or multiplying the output by \code{-1}).}
 \item{\code{paretoFront}}{object of class \code{\link{ps}} containing the
 actual Pareto set. If not provided a Pareto set is built based on the
 current feasible observations (\code{model@response[model@feasible,]}).}
@@ -63,4 +63,3 @@ res <- t(apply(doe, 1, nowacki_beam, box = data.frame(b = c(10, 50), h = c(50, 2
 model <- mkm(doe, res, modelcontrol = list(objective = 1:2, lower=c(0.1,0.1)))
 max_EHVI(model)
 }
-

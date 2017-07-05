@@ -7,9 +7,9 @@
 igd(aps, tps, method = "manhattan", norm = TRUE)
 }
 \arguments{
-\item{aps}{An object of type \code{\link{ps}} containing the "actual" pareto front}
+\item{aps}{An object of type \code{\link{ps}} containing the "actual" Pareto front}
 
-\item{tps}{An object of type \code{\link{ps}} containing the "true" pareto front}
+\item{tps}{An object of type \code{\link{ps}} containing the "true" Pareto front}
 
 \item{method}{String stating which distance measure to be used. This must be one of:
 "euclidean" or "manhattan" (default).}
@@ -20,7 +20,7 @@ igd(aps, tps, method = "manhattan", norm = TRUE)
 returns the IGD metric
 }
 \description{
-The IGD is a perfomance measure function of Pareto front fidelity and
+The IGD is a performance measure function of Pareto front fidelity and
 corresponds to the average distance between all designs in the true set and
 the closest design of the current set. Thus, the lower the IGD value, the
 better the front is.
@@ -40,4 +40,3 @@ Shimoyama, K., Jeong, S., & Obayashi, S. (2013, June).
   improvement in non-constrained many-objective test problems. In 2013 IEEE
   \emph{Congress on Evolutionary Computation} (pp. 658-665). IEEE.
 }
-

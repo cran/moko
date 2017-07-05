@@ -2,16 +2,16 @@
 #'
 #' This function is a variation of the classic multi-objective optimization
 #' problem (NOWACKI, 1980). In this problem the aim is to design a tip loaded
-#' cantilever eam for minimum cross-sectional aera and lowest bending stress
+#' cantilever beam for minimum cross-sectional area and lowest bending stress
 #' subject to a number of constraints.
 #'
 #' @references Forrester, A., Sobester, A., & Keane, A. (2008).
 #'   \emph{Engineering design via surrogate modelling: a practical guide.} John
 #'   Wiley & Sons.
 #'
-#' @param x vector of length 2 correspon the normalized beath and height of the
+#' @param x vector of length 2 corresponds the normalized breadth and height of the
 #'   beam
-#' @param g vector of lenght 5 containing the upper limits of each constraint
+#' @param g vector of length 5 containing the upper limits of each constraint
 #' @param l numeric length of the beam
 #' @param F numeric force applied at the beam tip
 #' @param E numeric elastic longitudinal moduli
@@ -121,7 +121,7 @@ Fonseca <- function(x){
 Kursawe <- function(x){
   d <- 3
   if (length(x) != d)
-    stop('lenght(x) must be 3')
+    stop('length(x) must be 3')
   f1 <- -10*(exp(-0.2*sqrt(x[1]^2+x[2]^2))+exp(-0.2*sqrt(x[2]^2+x[3]^2)))
   f2 <- abs(x[1])^0.8+5*sin(x[1]^3) + abs(x[2])^0.8+5*sin(x[2]^3) + abs(x[3])^0.8+5*sin(x[3]^3)
   return(c(f1,f2))

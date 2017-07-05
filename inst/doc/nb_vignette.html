@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -12,7 +12,7 @@
 
 <meta name="author" content="Adriano G. Passos" />
 
-<meta name="date" content="2016-09-16" />
+<meta name="date" content="2017-07-05" />
 
 <title>Multiobjective Optimization of the Nowacki Beam</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Multiobjective Optimization of the Nowacki Beam</h1>
 <h4 class="author"><em>Adriano G. Passos</em></h4>
-<h4 class="date"><em>2016-09-16</em></h4>
+<h4 class="date"><em>2017-07-05</em></h4>
 
 
 
@@ -126,7 +126,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol></li>
 <li><strong>end while</strong>.</li>
 </ol>
-<p>For this and the previous approach, the algorithm used to maximize the infill criteria (<span class="math inline">\(\text{EHVI}_C\)</span> and <span class="math inline">\(\text{EI}_C\)</span>, respectively) is the one provided by the <code>R</code> package <code>GenSA</code> <span class="citation">(Yang Xiang et al. 2013)</span> which stands for generalized simulated annealing.</p>
+<p>For this and the previous approach, the algorithm used to maximize the infill criteria (<span class="math inline">\(\text{EHVI}_C\)</span> and <span class="math inline">\(\text{EI}_C\)</span>, respectively) is the one provided by the <code>R</code> package <code>GenSA</code> <span class="citation">(<span class="citeproc-not-found" data-reference-id="GenSA"><strong>???</strong></span>)</span> which stands for generalized simulated annealing.</p>
 </div>
 <div id="variance-minimization-of-the-kriging-predicted-front-vmkf" class="section level3">
 <h3>Variance Minimization of the Kriging-predicted Front (VMKF)</h3>
@@ -322,9 +322,6 @@ model.VMPF &lt;-<span class="st"> </span><span class="kw">VMPF</span>(model, fun
 <div id="ref-shimoyama2013kriging">
 <p>Shimoyama, Koji, Shinkyu Jeong, and Shigeru Obayashi. 2013. “Kriging-Surrogate-Based Optimization Considering Expected Hypervolume Improvement in Non-Constrained Many-Objective Test Problems.” In <em>Evolutionary Computation (Cec), 2013 Ieee Congress on</em>, 658–65. IEEE.</p>
 </div>
-<div id="ref-GenSA">
-<p>Yang Xiang, Sylvain Gubian, Brian Suomela, and Julia Hoeng. 2013. “Generalized Simulated Annealing for Efficient Global Optimization: The GenSA Package for R.” <em>The R Journal Volume 5/1, June 2013</em>. <a href="http://journal.r-project.org/" class="uri">http://journal.r-project.org/</a>.</p>
-</div>
 <div id="ref-zitzler1998multiobjective">
 <p>Zitzler, Eckart, and Lothar Thiele. 1998. “Multiobjective Optimization Using Evolutionary Algorithms—a Comparative Case Study.” In <em>Parallel Problem Solving from Nature—PPSN V</em>, 292–301. Springer.</p>
 </div>
@@ -338,7 +335,7 @@ model.VMPF &lt;-<span class="st"> </span><span class="kw">VMPF</span>(model, fun
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

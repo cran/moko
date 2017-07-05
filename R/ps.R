@@ -9,7 +9,7 @@
 #'
 #' @param y design space data
 #' @param minimization logical representing if the set is to be minimized or not
-#' @param light.return logical indicating if the indexes should be writen on the
+#' @param light.return logical indicating if the indexes should be written on the
 #'   'ps' object
 #' @return S3 class object that contains information of the Pareto set
 #' @export

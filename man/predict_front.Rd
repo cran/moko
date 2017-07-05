@@ -15,13 +15,13 @@ predict_front(model, lower, upper, control = NULL, modelcontrol = NULL)
 \item{upper}{Vector of upper bounds for the variables to be optimized over
 (default: 1 with length \code{model@d}).}
 
-\item{control}{An optional list of control parameters that controlls the
+\item{control}{An optional list of control parameters that controls the
 optimization algorithm. One can control: \describe{
 \item{\code{popsize}}{(default: \code{200});}
 \item{\code{generations}}{(default: \code{30});}
 \item{\code{cdist}}{(default: \code{1/model@d});}
 \item{\code{mprob}}{(default: \code{15});}
-\item{\code{mdist}}{(defult: \code{20}).}
+\item{\code{mdist}}{(default: \code{20}).}
 }}
 
 \item{modelcontrol}{An optional list of control parameters to the
@@ -47,4 +47,3 @@ pf <- predict_front(model, c(0,0), c(1,1))
 plot(nowacki_beam_tps$set)
 points(pf$set, col='blue')
 }
-

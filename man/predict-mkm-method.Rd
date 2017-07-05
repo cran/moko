@@ -2,8 +2,8 @@
 % Please edit documentation in R/mkm.R
 \docType{methods}
 \name{predict,mkm-method}
-\alias{predict}
 \alias{predict,mkm-method}
+\alias{predict}
 \title{Predictor for a multiobjective Kriging model}
 \usage{
 \S4method{predict}{mkm}(object, newdata, modelcontrol = NULL)
@@ -39,4 +39,3 @@ for (i in 1:6){
   contour(matrix((pred$mean[,i]),N), add = TRUE)
 }
 }
-

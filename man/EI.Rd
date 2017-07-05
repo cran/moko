@@ -2,7 +2,7 @@
 % Please edit documentation in R/optim_mego.R
 \name{EI}
 \alias{EI}
-\title{Constrained Expected Emprovement}
+\title{Constrained Expected Improvement}
 \usage{
 EI(x, model, control = NULL)
 }
@@ -15,18 +15,18 @@ objective (\code{model@m == 1}).}
 \item{control}{An optional list of control parameters, some of them passed to
 the \code{\link[DiceOptim]{EI}} function. One can control:
   \describe{
-   \item{\code{minimization}}{logical specifying if EI is used in minimiziation or in maximization
+   \item{\code{minimization}}{logical specifying if EI is used in minimization or in maximization
    (default: \code{TRUE})}
    \item{\code{plugin}}{optional scalar, if not provided, the minimum (or maximum) of the current
     feasible observations. If there isn't any feasible design plugin is set to \code{NA} and the
-    algorithm returns the value of the probabilty of constraints be met.}
-   \item{\code{envir}}{optional enviroment specifying where to assign intermediate values.
+    algorithm returns the value of the probability of constraints be met.}
+   \item{\code{envir}}{optional environment specifying where to assign intermediate values.
     Default: \code{NULL}.}
   }}
 }
 \description{
 This functions extends the \code{\link[DiceOptim]{EI}} function supplied by the package
-\code{\link{DiceOptim}}. This enxtension allows usage of multiple
+\code{\link{DiceOptim}}. This extension allows usage of multiple
 expensive constraints. The constraints are passed to the revamped EI function
 embedded inside the \code{\link{mkm}} object. Currently low-cost (explicit)
 constraints are not allowed.
@@ -36,9 +36,9 @@ The way that the constraints are handled are based on the probability of
 feasibility. The strong assumption here is that the cost functions and the
 constraints are uncorrelated. With that assumption in mind, a simple
 closed-form solution can be derived that consists in the product of the
-probability that each constraint will be met and the expected improvemen of
+probability that each constraint will be met and the expected improvement of
 the objective. Another important consideration is that, by default, the value
-of the pluging passed to the \code{\link[DiceOptim]{EI}} is the best
+of the plugin passed to the \code{\link[DiceOptim]{EI}} is the best
 \emph{feasible} observed value.
 }
 \examples{
@@ -64,4 +64,3 @@ Forrester, A., Sobester, A., & Keane, A. (2008).
   \emph{Engineering design via surrogate modelling: a practical guide.} John
   Wiley & Sons.
 }
-

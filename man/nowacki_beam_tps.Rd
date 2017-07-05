@@ -12,4 +12,3 @@ nowacki_beam_tps
 True pareto front for the nowacki beam problem
 }
 \keyword{datasets}
-

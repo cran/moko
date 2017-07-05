@@ -52,4 +52,3 @@ doe <- replicate(d,sample(0:n,n))/n
 res <- t(apply(doe, 1, nowacki_beam))
 model <- mkm(doe, res, modelcontrol = list(objective = 1:2))
 }
-

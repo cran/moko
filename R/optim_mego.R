@@ -2,7 +2,7 @@
 #'
 #' The Augmented Tchebycheff function (KNOWLES, 2006) is a scalarizing function
 #' witch the advantages of having a non-linear term. That causes points on
-#' nonconvex regions of the Pareto front can bve minimizers of this function
+#' nonconvex regions of the Pareto front can be minimizers of this function
 #' and, thus, nonsupported solutions can be obtained.
 #'
 #' @references Knowles, J. (2006). ParEGO: a hybrid algorithm with on-line
@@ -13,7 +13,7 @@
 #'   column) to be scalarized.
 #' @param s Numerical integer (default: 100) setting the number of partitions
 #'   the vector lambda has.
-#' @param rho A small positive value (default: 0.1) setting the "strenght" of
+#' @param rho A small positive value (default: 0.1) setting the "strength" of
 #'   the non-linear term.
 #'
 #' @export
@@ -39,10 +39,10 @@ Tchebycheff <- function(y, s=100, rho=0.1){ #add lambda as parameter or someway 
 }
 
 #devtools::use_package("DiceOptim")
-#' Constrained Expected Emprovement
+#' Constrained Expected Improvement
 #'
 #' This functions extends the \code{\link[DiceOptim]{EI}} function supplied by the package
-#' \code{\link{DiceOptim}}. This enxtension allows usage of multiple
+#' \code{\link{DiceOptim}}. This extension allows usage of multiple
 #' expensive constraints. The constraints are passed to the revamped EI function
 #' embedded inside the \code{\link{mkm}} object. Currently low-cost (explicit)
 #' constraints are not allowed.
@@ -51,9 +51,9 @@ Tchebycheff <- function(y, s=100, rho=0.1){ #add lambda as parameter or someway 
 #' feasibility. The strong assumption here is that the cost functions and the
 #' constraints are uncorrelated. With that assumption in mind, a simple
 #' closed-form solution can be derived that consists in the product of the
-#' probability that each constraint will be met and the expected improvemen of
+#' probability that each constraint will be met and the expected improvement of
 #' the objective. Another important consideration is that, by default, the value
-#' of the pluging passed to the \code{\link[DiceOptim]{EI}} is the best
+#' of the plugin passed to the \code{\link[DiceOptim]{EI}} is the best
 #' \emph{feasible} observed value.
 #'
 #' @param x A vector representing the input for which one wishes to calculate EI.
@@ -62,12 +62,12 @@ Tchebycheff <- function(y, s=100, rho=0.1){ #add lambda as parameter or someway 
 #' @param control An optional list of control parameters, some of them passed to
 #' the \code{\link[DiceOptim]{EI}} function. One can control:
 #'   \describe{
-#'    \item{\code{minimization}}{logical specifying if EI is used in minimiziation or in maximization
+#'    \item{\code{minimization}}{logical specifying if EI is used in minimization or in maximization
 #'    (default: \code{TRUE})}
 #'    \item{\code{plugin}}{optional scalar, if not provided, the minimum (or maximum) of the current
 #'     feasible observations. If there isn't any feasible design plugin is set to \code{NA} and the
-#'     algorithm returns the value of the probabilty of constraints be met.}
-#'    \item{\code{envir}}{optional enviroment specifying where to assign intermediate values.
+#'     algorithm returns the value of the probability of constraints be met.}
+#'    \item{\code{envir}}{optional environment specifying where to assign intermediate values.
 #'     Default: \code{NULL}.}
 #'   }
 #'

@@ -20,12 +20,12 @@ objective (\code{model@m == 1}).}
 \item{control}{An optional list of control parameters, some of them passed to
 the \code{\link[DiceOptim]{EI}} function. One can control:
   \describe{
-   \item{\code{minimization}}{logical specifying if EI is used in minimiziation or in maximization
+   \item{\code{minimization}}{logical specifying if EI is used in minimization or in maximization
    (default: \code{TRUE})}
    \item{\code{plugin}}{optional scalar, if not provided, the minimum (or maximum) of the current
     feasible observations. If there isn't any feasible design plugin is set to \code{NA} and the
-    algorithm returns the value of the probabilty of constraints be met.}
-   \item{\code{envir}}{optional enviroment specifying where to assign intermediate values.
+    algorithm returns the value of the probability of constraints be met.}
+   \item{\code{envir}}{optional environment specifying where to assign intermediate values.
     Default: \code{NULL}.}
   }}
 
@@ -61,4 +61,3 @@ res <- t(apply(doe, 1, fun))
 model <- mkm(doe, res, modelcontrol = list(objective = 1, lower=c(0.1,0.1)))
 max_EI(model)
 }
-

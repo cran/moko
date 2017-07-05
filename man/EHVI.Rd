@@ -18,7 +18,7 @@ the \code{\link[GPareto]{crit_EHI}} function. One can control:
 objectives (\code{TRUE}, by default) or maximizing all objectives
 (\code{FALSE}). Mixed optimization is not currently accepted, if the user
 needs it, the cost functions should be modified prior Kriging modeling
-(i.e. inverting or mutilpying the optut by \code{-1}).}
+(i.e. inverting or multiplying the output by \code{-1}).}
 \item{\code{paretoFront}}{object of class \code{\link{ps}} containing the
 actual Pareto set. If not provided a Pareto set is built based on the
 current feasible observations (\code{model@response[model@feasible,]}).}
@@ -36,15 +36,15 @@ The constrained expected hypervolume improvement at \code{x}.
 \description{
 Multi-objective Expected Hypervolume Improvement with respect to the current
 Pareto front. It's based on the \code{\link{crit_EHI}} function of the
-\code{\link{GPareto}} package. However, the present implementation accounts
-for inequalty constrains embeded into the \code{mkm} model.
+\code{\link{GPareto-package}} package. However, the present implementation accounts
+for inequality constrains embedded into the \code{mkm} model.
 }
 \details{
 The way that the constraints are handled are based on the probability of
 feasibility. The strong assumption here is that the cost functions and the
 constraints are uncorrelated. With that assumption in mind, a simple
 closed-form solution can be derived that consists in the product of the
-probability that each constraint will be met and the expected improvemen of
+probability that each constraint will be met and the expected improvement of
 the objective.
 }
 \examples{
@@ -64,7 +64,6 @@ points(grid[which.max(ehvi),], col='green', pch=19)
 }
 \references{
 Forrester, A., Sobester, A., & Keane, A. (2008).
-  \emph{Engineering design via surrogate modelling: a practical guide.} John
+  \emph{Engineering design via surrogate modeling: a practical guide.} John
   Wiley & Sons.
 }
-

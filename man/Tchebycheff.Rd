@@ -13,13 +13,13 @@ column) to be scalarized.}
 \item{s}{Numerical integer (default: 100) setting the number of partitions
 the vector lambda has.}
 
-\item{rho}{A small positive value (default: 0.1) setting the "strenght" of
+\item{rho}{A small positive value (default: 0.1) setting the "strength" of
 the non-linear term.}
 }
 \description{
 The Augmented Tchebycheff function (KNOWLES, 2006) is a scalarizing function
 witch the advantages of having a non-linear term. That causes points on
-nonconvex regions of the Pareto front can bve minimizers of this function
+nonconvex regions of the Pareto front can be minimizers of this function
 and, thus, nonsupported solutions can be obtained.
 }
 \examples{
@@ -38,4 +38,3 @@ Knowles, J. (2006). ParEGO: a hybrid algorithm with on-line
   landscape approximation for expensive multiobjective optimization problems.
   \emph{IEEE Transactions on Evolutionary Computation}, 10(1), 50-66.
 }
-

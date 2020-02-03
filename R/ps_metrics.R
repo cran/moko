@@ -38,6 +38,7 @@ pdist <- function(point, set, method = "manhattan"){
 #' @return returns the IGD metric
 #' @export
 #' @examples
+#' \dontrun{
 #' aps <- ps(matrix(rnorm(1:1000),ncol=2))
 #' tps <- ps(matrix(rnorm(1:2000),ncol=2))
 #' igd(aps,tps)
@@ -45,6 +46,7 @@ pdist <- function(point, set, method = "manhattan"){
 #' tps <-nowacki_beam_tps$set[1:50 * 10,]
 #' aps <- tps * 1.2
 #' igd(aps,tps)
+#' }
 igd <- function(aps, tps, method = "manhattan", norm = TRUE){
   if(class(aps) == 'ps')
     aps <- aps$set

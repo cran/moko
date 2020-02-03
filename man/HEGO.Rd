@@ -4,8 +4,16 @@
 \alias{HEGO}
 \title{HEGO: Efficient Global Optimization Algorithm based on the Hypervolume criteria}
 \usage{
-HEGO(model, fun, nsteps, lower = rep(0, model@d), upper = rep(1, model@d),
-  quiet = TRUE, control = NULL, optimcontrol = NULL)
+HEGO(
+  model,
+  fun,
+  nsteps,
+  lower = rep(0, model@d),
+  upper = rep(1, model@d),
+  quiet = TRUE,
+  control = NULL,
+  optimcontrol = NULL
+)
 }
 \arguments{
 \item{model}{An object of class \code{\link{mkm}}.}

@@ -7,7 +7,7 @@
 EHVI(x, model, control = NULL)
 }
 \arguments{
-\item{x}{a vector representing the input for which one wishes to calculate \code{EHI},}
+\item{x}{a vector representing the input for which one wishes to calculate \code{EHI}, alternatively a matrix with one point per row,}
 
 \item{model}{An object of class \code{\link{mkm}}.}
 
@@ -51,12 +51,12 @@ the objective.
 # ------------------------
 # The Nowacki Beam
 # ------------------------
-n <- 20
+n <- 10
 d <- 2
 doe <- replicate(d,sample(0:n,n))/n
 res <- t(apply(doe, 1, nowacki_beam, box = data.frame(b = c(10, 50), h = c(50, 250))))
 model <- mkm(doe, res, modelcontrol = list(objective = 1:2, lower=rep(0.1,d)))
-grid <- expand.grid(seq(0, 1, , 20),seq(0, 1, , 20))
+grid <- expand.grid(seq(0, 1, , 10),seq(0, 1, , 10))
 ehvi <- apply(grid, 1, EHVI, model)
 contour(matrix(ehvi, 20))
 points(model@design, col=ifelse(model@feasible,'blue','red'))

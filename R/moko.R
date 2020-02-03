@@ -4,7 +4,7 @@
 #' multi-objective optimization based on the popular Kriging surrogate model.
 #'
 #' The main functions provided by \code{moko} are:
-#' \code{\link{MEGO}}, \code{\link{HEGO}} and \code{\link{VMPF}}.
+#' \code{\link{MEGO}}, \code{\link{HEGO}} and \code{\link{MVPF}}.
 #'
 #' @docType package
 #' @name moko

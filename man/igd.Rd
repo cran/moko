@@ -26,6 +26,7 @@ the closest design of the current set. Thus, the lower the IGD value, the
 better the front is.
 }
 \examples{
+\dontrun{
 aps <- ps(matrix(rnorm(1:1000),ncol=2))
 tps <- ps(matrix(rnorm(1:2000),ncol=2))
 igd(aps,tps)
@@ -33,6 +34,7 @@ igd(aps,tps)
 tps <-nowacki_beam_tps$set[1:50 * 10,]
 aps <- tps * 1.2
 igd(aps,tps)
+}
 }
 \references{
 Shimoyama, K., Jeong, S., & Obayashi, S. (2013, June).

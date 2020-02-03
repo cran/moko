@@ -4,8 +4,13 @@
 \alias{max_EHVI}
 \title{max_EHVI: Maximization of the Expected Hypervolume Improvement criterion}
 \usage{
-max_EHVI(model, lower = rep(0, model@d), upper = rep(1, model@d),
-  control = NULL, optimcontrol = NULL)
+max_EHVI(
+  model,
+  lower = rep(0, model@d),
+  upper = rep(1, model@d),
+  control = NULL,
+  optimcontrol = NULL
+)
 }
 \arguments{
 \item{model}{An object of class \code{\link{mkm}}.}
@@ -56,7 +61,7 @@ procedure.
 # ------------------------
 # The Nowacki Beam
 # ------------------------
-n <- 20
+n <- 10
 d <- 2
 doe <- replicate(d,sample(0:n,n))/n
 res <- t(apply(doe, 1, nowacki_beam, box = data.frame(b = c(10, 50), h = c(50, 250))))

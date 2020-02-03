@@ -5,8 +5,16 @@
 \title{MEGO: Multi-Objective Efficient Global Optimization Algorithm based on
 scalarization of the objectives}
 \usage{
-MEGO(model, fun, nsteps, lower = rep(0, model@d), upper = rep(1, model@d),
-  quiet = TRUE, control = NULL, optimcontrol = NULL)
+MEGO(
+  model,
+  fun,
+  nsteps,
+  lower = rep(0, model@d),
+  upper = rep(1, model@d),
+  quiet = TRUE,
+  control = NULL,
+  optimcontrol = NULL
+)
 }
 \arguments{
 \item{model}{An object of class \code{\link{mkm}}. This \code{model} must have a single

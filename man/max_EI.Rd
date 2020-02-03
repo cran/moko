@@ -4,8 +4,13 @@
 \alias{max_EI}
 \title{max_EI: Maximization of the Constrained Expected Improvement criterion}
 \usage{
-max_EI(model, lower = rep(0, model@d), upper = rep(1, model@d),
-  control = NULL, optimcontrol = NULL)
+max_EI(
+  model,
+  lower = rep(0, model@d),
+  upper = rep(1, model@d),
+  control = NULL,
+  optimcontrol = NULL
+)
 }
 \arguments{
 \item{model}{An object of class \code{\link{mkm}}. This \code{model} must have a single

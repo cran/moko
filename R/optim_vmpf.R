@@ -1,3 +1,4 @@
+
 #devtools::use_package("mco")
 #' Predicted Pareto front
 #'
@@ -91,7 +92,7 @@ predict_front <- function(model, lower, upper, control = NULL, modelcontrol = NU
   return(mco2ps(res))
 }
 
-#' VMPF: Variance Minimization of the Predicted Front
+#' MVPF: Minimization of the Variance of the Kriging-Predicted Front
 #'
 #' Executes \code{nsteps} iterations of the VMPF algorithm to an object of class
 #' \code{\link{mkm}}. At each step, a multi-objective kriging model is re-estimated
@@ -128,10 +129,10 @@ predict_front <- function(model, lower, upper, control = NULL, modelcontrol = NU
 #' doe <- replicate(d,sample(0:n,n))/n
 #' res <- t(apply(doe, 1, fun))
 #' model <- mkm(doe, res, modelcontrol = list(objective = 1:2, lower = rep(0.1,d)))
-#' model <- VMPF(model, fun, nsteps, quiet = FALSE)
+#' model <- MVPF(model, fun, nsteps, quiet = FALSE)
 #' plot(nowacki_beam_tps$set)
 #' points(ps(model@response[which(model@feasible),model@objective])$set, col = 'green', pch = 19)
-VMPF <- function(model, fun, nsteps, lower = rep(0,model@d) , upper = rep(1,model@d),
+MVPF <- function(model, fun, nsteps, lower = rep(0,model@d) , upper = rep(1,model@d),
                  quiet = TRUE, control = NULL, modelcontrol = NULL){
   time <- proc.time()
   if (class(model) != 'mkm')
@@ -161,3 +162,22 @@ VMPF <- function(model, fun, nsteps, lower = rep(0,model@d) , upper = rep(1,mode
   }
   return(model)
 }
+
+#' Deprecated function
+#'
+#' This function is deprecated and will be removed in a near future
+#'
+#' @inheritParams MVPF
+#'
+#' @rdname package-deprecated
+#' @seealso \link{MVPF}
+#' @export
+VMPF <- function(model, fun, nsteps, lower = rep(0,model@d) , upper = rep(1,model@d),
+                 quiet = TRUE, control = NULL, modelcontrol = NULL){
+  .Deprecated("MVPF")
+  MVPF(model, fun, nsteps, lower = rep(0,model@d), upper = rep(1,model@d),
+           quiet = TRUE, control = NULL, modelcontrol = NULL)
+}
+
+
+

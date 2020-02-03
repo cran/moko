@@ -1,65 +1,298 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <meta name="author" content="Adriano G. Passos" />
 
-<meta name="date" content="2017-07-05" />
+<meta name="date" content="2020-02-03" />
 
 <title>Multiobjective Optimization of the Nowacki Beam</title>
 
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
 
-<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -69,8 +302,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">Multiobjective Optimization of the Nowacki Beam</h1>
-<h4 class="author"><em>Adriano G. Passos</em></h4>
-<h4 class="date"><em>2017-07-05</em></h4>
+<h4 class="author">Adriano G. Passos</h4>
+<h4 class="date">2020-02-03</h4>
 
 
 
@@ -88,7 +321,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="surrogate-multiobjetive-approaches" class="section level2">
 <h2>Surrogate Multiobjetive Approaches</h2>
-<p>In the current work, three different Kriging-based multiobjective frameworks are studied, which are discussed in the following subsections. The derivation of the Kriging predictor and the design of experiments (DOE) concept are not covered in this paper. The reader can find a comprehensive mathematical description of these subjects in <span class="citation">(Forrester, Sobester, and Keane 2008)</span>. The Kriging models where built using the <code>R</code> package <code>DiceKriging</code> <span class="citation">(O. Roustant, Ginsbourger, and Deville 2012)</span>.</p>
+<p>In the current work, three different Kriging-based multiobjective frameworks are studied, which are discussed in the following subsections. The derivation of the Kriging predictor and the design of experiments (DOE) concept are not covered in this paper. The reader can find a comprehensive mathematical description of these subjects in <span class="citation">(Forrester, Sobester, and Keane 2008)</span>. The Kriging models where built using the <code>R</code> package <code>DiceKriging</code> <span class="citation">(Roustant, Ginsbourger, and Deville 2012)</span>.</p>
 <div id="multiobjective-efficient-global-optimization-mego" class="section level3">
 <h3>Multiobjective Efficient Global Optimization (MEGO)</h3>
 <p>EGO, proposed by Jones <span class="citation">(Jones, Schonlau, and Welch 1998)</span> for mono-objective optimization, consists in, from an initial set of samples <span class="math inline">\(\mathbf{X}\)</span>, a Kriging model is built using the responses of a high-fidelity model, then the algorithm sequentially maximizes the expected improvement (EI) and updates the model at each iteration (including re-estimation of the hyperparameters).</p>
@@ -96,20 +329,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The EGO algorithm can be easily imported to a multiobjective framework by creating a combined function of the qualities <span class="citation">(Knowles 2006)</span>. The constrains of the optimization problem can be considered simply by building independent metamodels for each constraint and multiplying the EI of the composed objective function by the probability of each constraint to be met <span class="citation">(Sasena, Papalambros, and Goovaerts 2002)</span>. The MEGO algorithm can be summarized as follows:</p>
 <ol style="list-style-type: decimal">
 <li>Generate an initial DOE <span class="math inline">\(\mathbf{X}\)</span> using an optimized <em>Latin hypercube</em>;</li>
-<li>Evaluate <span class="math inline">\(\mathbf{X}\)</span> using high-fidelity models and store responses of <span class="math inline">\(\mathbf{f}=[f_1,f_2,\ldots,f_m]^T\)</span> and <span class="math inline">\(\mathbf{g}=[g_1,g_2,\ldots,g_p]^T\)</span> for the <span class="math inline">\(m\)</span>-objectives and <span class="math inline">\(p\)</span>-constraints.
-<ol style="list-style-type: decimal">
-<li><strong>while</strong> computational budget not exhausted <strong>do</strong>:</li>
-</ol>
+<li>Evaluate <span class="math inline">\(\mathbf{X}\)</span> using high-fidelity models and store responses of <span class="math inline">\(\mathbf{f}=[f_1,f_2,\ldots,f_m]^T\)</span> and <span class="math inline">\(\mathbf{g}=[g_1,g_2,\ldots,g_p]^T\)</span> for the <span class="math inline">\(m\)</span>-objectives and <span class="math inline">\(p\)</span>-constraints. 1. <strong>while</strong> computational budget not exhausted <strong>do</strong>: a. Normalize the responses to fit in a hypercube of size <span class="math inline">\([0,1]^m\)</span>; a. For each <span class="math inline">\(\mathbf{x} \in \mathbf{X}\)</span> Compute a scalar quality by making <span class="math inline">\(f_{\mathbf{\lambda}} = \underset{i=1}{\overset{m}{\text{max}}}(\lambda_i f_i) + \rho \sum^m_{(i=1)}\lambda_i f_i\)</span>, where <span class="math inline">\(\mathbf{\lambda}\)</span> is drawn uniformly at random from a set of evenly distributed unit vectors and <span class="math inline">\(\rho\)</span> is an arbitrary small value which we set to <span class="math inline">\(0.05\)</span>; a. Build Kriging models for <span class="math inline">\(f_{\mathbf{\lambda}}\)</span> and for the constraints <span class="math inline">\(\mathbf{g}\)</span>; a. Find <span class="math inline">\(\mathbf{x}^\star\)</span> that maximizes the <em>constrained expected improvement</em>: <span class="math inline">\(\mathbf{x}^\star = \text{arg}(\text{max}(\text{EI}_C(\mathbf{x})))\)</span>;
 <ol style="list-style-type: lower-alpha">
-<li>Normalize the responses to fit in a hypercube of size <span class="math inline">\([0,1]^m\)</span>;</li>
-<li>For each <span class="math inline">\(\mathbf{x} \in \mathbf{X}\)</span> Compute a scalar quality by making <span class="math inline">\(f_{\mathbf{\lambda}} = \underset{i=1}{\overset{m}{\text{max}}}(\lambda_i f_i) + \rho \sum^m_{(i=1)}\lambda_i f_i\)</span>, where <span class="math inline">\(\mathbf{\lambda}\)</span> is drawn uniformly at random from a set of evenly distributed unit vectors and <span class="math inline">\(\rho\)</span> is an arbitrary small value which we set to <span class="math inline">\(0.05\)</span>;</li>
-<li>Build Kriging models for <span class="math inline">\(f_{\mathbf{\lambda}}\)</span> and for the constraints <span class="math inline">\(\mathbf{g}\)</span>;</li>
-<li>Find <span class="math inline">\(\mathbf{x}^\star\)</span> that maximizes the <em>constrained expected improvement</em>: <span class="math inline">\(\mathbf{x}^\star = \text{arg}(\text{max}(\text{EI}_C(\mathbf{x})))\)</span>;</li>
 <li>Evaluate the ``true’’ values of <span class="math inline">\(f(\mathbf{x}^\star\)</span>) and <span class="math inline">\(g(\mathbf{x}^\star)\)</span> using high-fidelity models and update the database.</li>
 </ol></li>
 <li><strong>end while</strong>.</li>
 </ol>
-<p>Here, the EI is computed using a custom modified version of the functions provided on the <code>R</code> package <code>DiceOptim</code> <span class="citation">(D. Ginsbourger et al. 2013)</span> so that it could handle constrains. Also, on all approaches, the optimized Latin hypercube is built using the <code>R</code> package <code>lhs</code> <span class="citation">(Carnell 2012)</span>.</p>
+<p>Here, the EI is computed using a custom modified version of the functions provided on the <code>R</code> package <code>DiceOptim</code> <span class="citation">(Ginsbourger et al. 2013)</span> so that it could handle constrains. Also, on all approaches, the optimized Latin hypercube is built using the <code>R</code> package <code>lhs</code> <span class="citation">(Carnell 2012)</span>.</p>
 </div>
 <div id="expected-hypervolume-improvement-ehvi" class="section level3">
 <h3>Expected Hypervolume Improvement (EHVI)</h3>
@@ -117,13 +343,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ol style="list-style-type: decimal">
 <li>Generate an initial DOE <span class="math inline">\(\mathbf{X}\)</span> using an optimized <em>Latin hypercube</em>;</li>
 <li>Evaluate <span class="math inline">\(\mathbf{X}\)</span> using high-fidelity models and store responses of <span class="math inline">\(\mathbf{f}=[f_1,f_2,\ldots,f_m]^T\)</span> and <span class="math inline">\(\mathbf{g}=[g_1,g_2,\ldots,g_p]^T\)</span> for the <span class="math inline">\(m\)</span>-objectives and <span class="math inline">\(p\)</span>-constraints.</li>
-<li><strong>while</strong> computational budget not exhausted <strong>do</strong>:
-<ol style="list-style-type: lower-alpha">
-<li>Normalize the responses to fit a hypercube of size <span class="math inline">\([0,1]^m\)</span>;</li>
-<li>For each of the <span class="math inline">\(m\)</span>-objectives and <span class="math inline">\(p\)</span>-constraints, build a Kriging model;</li>
-<li>Find <span class="math inline">\(\mathbf{x}^\star\)</span> that maximizes the <em>constrained expected hypervolume improvement</em>: <span class="math inline">\(\mathbf{x}^\star = \text{arg}(\text{max}(\text{EHVI}_C(\mathbf{x})))\)</span>;</li>
-<li>Evaluate the ``true’’ values of <span class="math inline">\(f(\mathbf{x}^\star\)</span>) and <span class="math inline">\(g(\mathbf{x}^\star)\)</span> using high-fidelity models and update the database.</li>
-</ol></li>
+<li><strong>while</strong> computational budget not exhausted <strong>do</strong>: a. Normalize the responses to fit a hypercube of size <span class="math inline">\([0,1]^m\)</span>; a. For each of the <span class="math inline">\(m\)</span>-objectives and <span class="math inline">\(p\)</span>-constraints, build a Kriging model; a. Find <span class="math inline">\(\mathbf{x}^\star\)</span> that maximizes the <em>constrained expected hypervolume improvement</em>: <span class="math inline">\(\mathbf{x}^\star = \text{arg}(\text{max}(\text{EHVI}_C(\mathbf{x})))\)</span>; a. Evaluate the ``true’’ values of <span class="math inline">\(f(\mathbf{x}^\star\)</span>) and <span class="math inline">\(g(\mathbf{x}^\star)\)</span> using high-fidelity models and update the database.</li>
 <li><strong>end while</strong>.</li>
 </ol>
 <p>For this and the previous approach, the algorithm used to maximize the infill criteria (<span class="math inline">\(\text{EHVI}_C\)</span> and <span class="math inline">\(\text{EI}_C\)</span>, respectively) is the one provided by the <code>R</code> package <code>GenSA</code> <span class="citation">(<span class="citeproc-not-found" data-reference-id="GenSA"><strong>???</strong></span>)</span> which stands for generalized simulated annealing.</p>
@@ -134,13 +354,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ol style="list-style-type: decimal">
 <li>Generate an initial DOE <span class="math inline">\(\mathbf{X}\)</span> using an optimized <em>Latin hypercube</em>;</li>
 <li>Evaluate <span class="math inline">\(\mathbf{X}\)</span> using high-fidelity models and store responses of <span class="math inline">\(\mathbf{f}=[f_1,f_2,\ldots,f_m]^T\)</span> and <span class="math inline">\(\mathbf{g}=[g_1,g_2,\ldots,g_p]^T\)</span> for the <span class="math inline">\(m\)</span>-objectives and <span class="math inline">\(p\)</span>-constraints.</li>
-<li><strong>while</strong> computational budget not exhausted <strong>do</strong>:
-<ol style="list-style-type: lower-alpha">
-<li>For each of the <span class="math inline">\(m\)</span>-objectives and <span class="math inline">\(p\)</span>-constraints, build a Kriging model;</li>
-<li>Generate a Pareto set <span class="math inline">\(\mathbf{P}\)</span> using the mean predictor of the Kriging models using a state-of-art multiobjective optimization algorithm (such as NSGA-II);</li>
-<li>Find <span class="math inline">\(\mathbf{x}^\star \in \mathbf{P}\)</span> that maximizes the : <span class="math inline">\(\mathbf{x}^\star = \text{arg}(\text{max}(\text{s}_\text{km}(\mathbf{x})))\)</span>;</li>
-<li>Evaluate the ``true’’ values of <span class="math inline">\(f(\mathbf{x}^\star\)</span>) and <span class="math inline">\(g(\mathbf{x}^\star)\)</span> using high-fidelity models and update the database.</li>
-</ol></li>
+<li><strong>while</strong> computational budget not exhausted <strong>do</strong>: a. For each of the <span class="math inline">\(m\)</span>-objectives and <span class="math inline">\(p\)</span>-constraints, build a Kriging model; a. Generate a Pareto set <span class="math inline">\(\mathbf{P}\)</span> using the mean predictor of the Kriging models using a state-of-art multiobjective optimization algorithm (such as NSGA-II); a. Find <span class="math inline">\(\mathbf{x}^\star \in \mathbf{P}\)</span> that maximizes the : <span class="math inline">\(\mathbf{x}^\star = \text{arg}(\text{max}(\text{s}_\text{km}(\mathbf{x})))\)</span>; a. Evaluate the ``true’’ values of <span class="math inline">\(f(\mathbf{x}^\star\)</span>) and <span class="math inline">\(g(\mathbf{x}^\star)\)</span> using high-fidelity models and update the database.</li>
 <li><strong>end while</strong></li>
 </ol>
 <p>Here, the NSGA-II implementation used is the one provided by the <code>R</code> package <code>mco</code> <span class="citation">(Mersmann 2014)</span>.</p>
@@ -176,139 +390,136 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="methodology" class="section level2">
 <h2>Methodology</h2>
 <p>First we load the <code>moko</code> package and the <code>lhs</code> package that we will use here for optimal DOE generation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(moko)
-<span class="kw">library</span>(lhs)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(moko)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(lhs)</a></code></pre></div>
 <p>After loading the necessary packages, we generate an initial DOE using an optimized Latin hypercube of <code>n = 20</code> samples in two dimensions (<code>d = 2</code>) by doing:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n =<span class="st"> </span><span class="dv">20</span>
-d =<span class="st"> </span><span class="dv">2</span>
-<span class="kw">set.seed</span>(<span class="dv">18</span>)
-doe &lt;-<span class="st"> </span><span class="kw">optimumLHS</span>(n,d)</code></pre></div>
-<p>The <code>seed</code> is arbitrary set to 100 so we can achieve reproducibility. This is how our sample looks: <img src="data:image/png;base64,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" style="display: block; margin: auto;" /> Now, we load the Nowacki beam function and compute the output.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fun &lt;-<span class="st"> </span>nowacki_beam
-res &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(doe, <span class="dv">1</span>, fun))</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">n =<span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb2-2" title="2">d =<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="kw">set.seed</span>(<span class="dv">18</span>)</a>
+<a class="sourceLine" id="cb2-4" title="4">doe &lt;-<span class="st"> </span><span class="kw">optimumLHS</span>(n,d)</a></code></pre></div>
+<p>The <code>seed</code> is arbitrary set to 100 so we can achieve reproducibility. This is how our sample looks: <img src="data:image/png;base64,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" style="display: block; margin: auto;" /> Now, we load the Nowacki beam function and compute the output.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">fun &lt;-<span class="st"> </span>nowacki_beam</a>
+<a class="sourceLine" id="cb3-2" title="2">res &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(doe, <span class="dv">1</span>, fun))</a></code></pre></div>
 <p>The <code>res</code> object consists in a numeric matrix with 20 lines and 7 columns:</p>
 <pre><code>##           [,1]     [,2]    [,3]     [,4]     [,5]   [,6]         [,7]
-##  [1,] 7516.075   35.203  -3.567 -204.797 -119.002 -6.152 -1220372.063
-##  [2,]  627.667 2253.893 485.655 2013.893 -108.051 -8.388      227.153
-##  [3,] 3469.892  181.044  12.501  -58.956 -117.839 -8.521  -296387.036
-##  [4,] 2631.625  107.202  -0.346 -132.798 -117.150 -0.332  -136765.942
-##  [5,] 1003.562 1579.816 380.423 1339.816 -112.527 -9.197   -23914.067
-##  [6,] 1386.874  281.947  11.965   41.947 -114.592 -0.450   -30766.970
-##  [7,] 5377.703   44.022  -3.396 -195.978 -118.605 -3.281  -606336.425
-##  [8,] 4749.309   73.629  -1.038 -166.371 -118.421 -6.513  -484642.232
-##  [9,] 2709.246  164.276   6.251  -75.724 -117.232 -6.227  -150067.191
-## [10,] 5329.015   34.989  -3.996 -205.011 -118.593  0.930  -591132.666
-## [11,] 3756.095   77.710  -1.510 -162.290 -118.003 -3.672  -291089.815
-## [12,] 9796.517   20.239  -4.383 -219.761 -119.234 -4.742 -2049326.860
-## [13,] 2078.114  221.387  10.673  -18.613 -116.391 -5.396   -83157.145
-## [14,] 7323.116   26.646  -4.200 -213.354 -118.976 -2.738 -1131134.696
-## [15,] 3560.476  142.310   6.096  -97.690 -117.894 -7.785  -283193.475
-## [16,] 3084.387   74.261  -2.383 -165.739 -117.568  2.514  -191180.808
-## [17,]  555.750 1674.726 234.854 1434.726 -106.505 -5.794     3307.882
-## [18,] 6321.283   52.033  -2.366 -187.967 -118.814 -7.039  -879055.382
-## [19,] 2043.343  360.602  35.886  120.602 -116.330 -8.175   -90355.853
-## [20,] 8344.867   25.582  -4.160 -214.418 -119.101 -4.675 -1483593.992</code></pre>
+##  [1,] 7583.035   34.584  -3.604 -205.416 -119.011 -6.117 -1241695.823
+##  [2,]  708.964 1620.470 281.475 1380.470 -109.421 -7.836    -1671.848
+##  [3,] 3615.173  171.235  11.312  -68.765 -117.925 -8.538  -323807.436
+##  [4,] 2720.479   97.611  -1.011 -142.389 -117.243  0.556  -146710.229
+##  [5,]  935.562 1770.643 446.351 1530.643 -111.983 -9.211   -19792.770
+##  [6,] 1568.087  237.538   8.615   -2.462 -115.217 -0.692   -42131.351
+##  [7,] 5445.722   43.243  -3.433 -196.757 -118.623 -3.295  -622053.908
+##  [8,] 4609.511   76.800  -0.816 -163.200 -118.373 -6.495  -455763.448
+##  [9,] 2763.636  161.186   6.049  -78.814 -117.286 -6.307  -156800.351
+## [10,] 5860.066   30.740  -4.148 -209.260 -118.720  0.649  -717072.652
+## [11,] 3758.513   76.615  -1.605 -163.385 -118.005 -3.503  -291288.284
+## [12,] 9335.173   21.965  -4.307 -218.035 -119.197 -4.840 -1861194.422
+## [13,] 1980.280  232.845  11.521   -7.155 -116.213 -5.190   -74432.481
+## [14,] 7337.560   26.395  -4.213 -213.605 -118.978 -2.642 -1135366.662
+## [15,] 3218.077  177.750  10.646  -62.250 -117.669 -8.077  -236050.920
+## [16,] 2895.649   79.976  -2.150 -160.024 -117.410  3.040  -167268.564
+## [17,]  554.691 1578.857 207.773 1338.857 -106.479 -5.240     3372.536
+## [18,] 6527.316   48.697  -2.618 -191.303 -118.851 -6.929  -934550.979
+## [19,] 2041.371  346.424  32.698  106.424 -116.326 -8.016   -88375.722
+## [20,] 8114.381   26.309  -4.136 -213.691 -119.076 -4.524 -1400915.704</code></pre>
 <p>Each line of this matrix is a single design where the two first columns are the outputs that we need to maximize and the remaining columns are the constraints values. Any value that is grater than zero does not meet the constraint so the design is unfeasible. Note that, on this case, only the samples number 1, 4, 7, 8, 11, 12, 14, 18 and 20 are feasible. I does not matter right now, but we will check that latter, after fitting the model.</p>
-<p>Now, we can create a multi-objective kriging model by calling the function <code>mkm</code>. Note that we need to setup the <code>modelcontrol</code> argument in order to tell the function that our data have two objectives. By doing that, the remaining columns of the response will be flagged as constraints. Also, in order to increase stability, we set the lower bounds for the kriging hyperparameter estimation as <code>0.1</code> for all variables (for more information check the <em>Identifiability issues caused by large design interdistances</em> section of <span class="citation">(O. Roustant, Ginsbourger, and Deville 2012)</span>)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span><span class="kw">mkm</span>(doe, res, <span class="dt">modelcontrol =</span> <span class="kw">list</span>(<span class="dt">objective =</span> <span class="dv">1</span>:<span class="dv">2</span>, <span class="dt">lower =</span> <span class="kw">rep</span>(<span class="fl">0.1</span>, d)))</code></pre></div>
+<p>Now, we can create a multi-objective kriging model by calling the function <code>mkm</code>. Note that we need to setup the <code>modelcontrol</code> argument in order to tell the function that our data have two objectives. By doing that, the remaining columns of the response will be flagged as constraints. Also, in order to increase stability, we set the lower bounds for the kriging hyperparameter estimation as <code>0.1</code> for all variables (for more information check the <em>Identifiability issues caused by large design interdistances</em> section of <span class="citation">(Roustant, Ginsbourger, and Deville 2012)</span>)</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">model &lt;-<span class="st"> </span><span class="kw">mkm</span>(doe, res, <span class="dt">modelcontrol =</span> <span class="kw">list</span>(<span class="dt">objective =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">lower =</span> <span class="kw">rep</span>(<span class="fl">0.1</span>, d)))</a></code></pre></div>
 <p>The <code>model</code>is an <code>S4</code> objects with some usefull slots. For example, one can check which designs are feasible by simply calling:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">which</span>(model@feasible)</code></pre></div>
-<pre><code>## [1]  1  4  7  8 11 12 14 18 20</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">which</span>(model<span class="op">@</span>feasible)</a></code></pre></div>
+<pre><code>## [1]  1  7  8 11 12 14 18 20</code></pre>
 <p>which returns the index of the feasible designs. Furthermore, one can get the feasible designs themselves by calling:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model@design[model@feasible,]</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">model<span class="op">@</span>design[model<span class="op">@</span>feasible,]</a></code></pre></div>
 <pre><code>##          x.1       x.2
-## 1  0.8548210 0.6524978
-## 4  0.1624574 0.6065604
-## 7  0.4572788 0.7394968
-## 8  0.6726555 0.4725473
-## 11 0.3590855 0.5833455
-## 12 0.8290982 0.8998293
-## 14 0.5438668 0.9157191
-## 18 0.9050853 0.5078878
-## 20 0.7397084 0.8295263</code></pre>
+## 1  0.8548210 0.6590855
+## 7  0.4624574 0.7438668
+## 8  0.6565604 0.4657191
+## 11 0.3512785 0.5924858
+## 12 0.8134016 0.8672387
+## 14 0.5394968 0.9232576
+## 18 0.9026489 0.5285742
+## 20 0.7123725 0.8295263</code></pre>
 <p>or the responses associated with those feasible designs with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model@response[model@feasible,]</code></pre></div>
-<pre><code>##         y.1       y.2        y.3       y.4       y.5        y.6        y.7
-## 1  7516.075  35.20321 -3.5667043 -204.7968 -119.0021 -6.1515376 -1220372.1
-## 4  2631.625 107.20218 -0.3461603 -132.7978 -117.1501 -0.3317974  -136765.9
-## 7  5377.703  44.02198 -3.3963261 -195.9780 -118.6054 -3.2811412  -606336.4
-## 8  4749.309  73.62939 -1.0380129 -166.3706 -118.4208 -6.5131656  -484642.2
-## 11 3756.095  77.71011 -1.5096264 -162.2899 -118.0032 -3.6720934  -291089.8
-## 12 9796.517  20.23905 -4.3825070 -219.7610 -119.2344 -4.7418885 -2049326.9
-## 14 7323.116  26.64577 -4.1999213 -213.3542 -118.9758 -2.7375915 -1131134.7
-## 18 6321.283  52.03267 -2.3664740 -187.9673 -118.8135 -7.0388722  -879055.4
-## 20 8344.867  25.58238 -4.1596088 -214.4176 -119.1012 -4.6754254 -1483594.0</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">model<span class="op">@</span>response[model<span class="op">@</span>feasible,]</a></code></pre></div>
+<pre><code>##         y.1      y.2        y.3       y.4       y.5       y.6        y.7
+## 1  7583.035 34.58424 -3.6043393 -205.4158 -119.0110 -6.117252 -1241695.8
+## 7  5445.722 43.24347 -3.4329719 -196.7565 -118.6228 -3.294710  -622053.9
+## 8  4609.511 76.79969 -0.8163626 -163.2003 -118.3729 -6.494569  -455763.4
+## 11 3758.513 76.61539 -1.6050900 -163.3846 -118.0045 -3.502522  -291288.3
+## 12 9335.173 21.96469 -4.3069689 -218.0353 -119.1966 -4.840498 -1861194.4
+## 14 7337.560 26.39487 -4.2133690 -213.6051 -118.9779 -2.642489 -1135366.7
+## 18 6527.316 48.69679 -2.6181440 -191.3032 -118.8510 -6.929419  -934551.0
+## 20 8114.381 26.30904 -4.1357378 -213.6910 -119.0757 -4.524183 -1400915.7</code></pre>
 <p>One can even filter only the feasible designs objective’s by:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model@response[model@feasible,model@objective]</code></pre></div>
-<pre><code>##         y.1       y.2
-## 1  7516.075  35.20321
-## 4  2631.625 107.20218
-## 7  5377.703  44.02198
-## 8  4749.309  73.62939
-## 11 3756.095  77.71011
-## 12 9796.517  20.23905
-## 14 7323.116  26.64577
-## 18 6321.283  52.03267
-## 20 8344.867  25.58238</code></pre>
-<p>This is only a small number of operations that can be done by using the slots of the <code>mkm</code> model. More details on the slots can be found on the help using <code>?'mkm-class'</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">model<span class="op">@</span>response[model<span class="op">@</span>feasible,model<span class="op">@</span>objective]</a></code></pre></div>
+<pre><code>##         y.1      y.2
+## 1  7583.035 34.58424
+## 7  5445.722 43.24347
+## 8  4609.511 76.79969
+## 11 3758.513 76.61539
+## 12 9335.173 21.96469
+## 14 7337.560 26.39487
+## 18 6527.316 48.69679
+## 20 8114.381 26.30904</code></pre>
+<p>This is only a small number of operations that can be done by using the slots of the <code>mkm</code> model. More details on the slots can be found on the help using <code>?&#39;mkm-class&#39;</code>.</p>
 <p>Now that we executed steps 1 and 2 for all optimization techniques presented here, we will apply the VMPF algorithm on the initial model to demonstrate how to handle the <code>mkm</code> object. Considering a total budget of 40 evaluations (which 20 were already spent building the initial model) we can code the technique as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (i in <span class="dv">21</span>:<span class="dv">40</span>){
-  pred_ps &lt;-<span class="st"> </span><span class="kw">predict_front</span>(model, <span class="dt">lower =</span> <span class="kw">rep</span>(<span class="dv">0</span>,d), <span class="dt">upper =</span> <span class="kw">rep</span>(<span class="dv">1</span>,d))
-  pred_ps$sd &lt;-<span class="st"> </span><span class="kw">predict</span>(model, pred_ps$x)$norm_sd
-  x_star &lt;-<span class="st"> </span>pred_ps$x[<span class="kw">which.max</span>(pred_ps$sd),]
-  y_star &lt;-<span class="st"> </span><span class="kw">fun</span>(x_star)
-  model &lt;-<span class="st"> </span><span class="kw">mkm</span>(
-    <span class="kw">rbind</span>(model@design, x_star), 
-    <span class="kw">rbind</span>(model@response, y_star), 
-    <span class="dt">modelcontrol =</span> model@control)
-}</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">21</span><span class="op">:</span><span class="dv">40</span>){</a>
+<a class="sourceLine" id="cb14-2" title="2">  pred_ps &lt;-<span class="st"> </span><span class="kw">predict_front</span>(model, <span class="dt">lower =</span> <span class="kw">rep</span>(<span class="dv">0</span>,d), <span class="dt">upper =</span> <span class="kw">rep</span>(<span class="dv">1</span>,d))</a>
+<a class="sourceLine" id="cb14-3" title="3">  pred_ps<span class="op">$</span>sd &lt;-<span class="st"> </span><span class="kw">predict</span>(model, pred_ps<span class="op">$</span>x)<span class="op">$</span>norm_sd</a>
+<a class="sourceLine" id="cb14-4" title="4">  x_star &lt;-<span class="st"> </span>pred_ps<span class="op">$</span>x[<span class="kw">which.max</span>(pred_ps<span class="op">$</span>sd),]</a>
+<a class="sourceLine" id="cb14-5" title="5">  y_star &lt;-<span class="st"> </span><span class="kw">fun</span>(x_star)</a>
+<a class="sourceLine" id="cb14-6" title="6">  model &lt;-<span class="st"> </span><span class="kw">mkm</span>(</a>
+<a class="sourceLine" id="cb14-7" title="7">    <span class="kw">rbind</span>(model<span class="op">@</span>design, x_star), </a>
+<a class="sourceLine" id="cb14-8" title="8">    <span class="kw">rbind</span>(model<span class="op">@</span>response, y_star), </a>
+<a class="sourceLine" id="cb14-9" title="9">    <span class="dt">modelcontrol =</span> model<span class="op">@</span>control)</a>
+<a class="sourceLine" id="cb14-10" title="10">}</a></code></pre></div>
 <p>To check the IGD metric we first need to build a <code>ps</code> object from the actual data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">actual_ps &lt;-<span class="st"> </span><span class="kw">ps</span>(model@response[model@feasible,model@objective])
-<span class="kw">print</span>(<span class="kw">igd</span>(actual_ps, true_ps))</code></pre></div>
-<pre><code>## [1] 0.03799367</code></pre>
-<p>Now we can visualize the actual Pareto front and check how good it is against the true front. <img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">actual_ps &lt;-<span class="st"> </span><span class="kw">ps</span>(model<span class="op">@</span>response[model<span class="op">@</span>feasible,model<span class="op">@</span>objective])</a>
+<a class="sourceLine" id="cb15-2" title="2"><span class="kw">print</span>(<span class="kw">igd</span>(actual_ps, true_ps))</a></code></pre></div>
+<pre><code>## [1] 0.0690039</code></pre>
+<p>Now we can visualize the actual Pareto front and check how good it is against the true front. <img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 <p>Alternatively, one can use the <code>VMPF</code> function and save some coding lines. This function is basically a wrapper for the demonstrated algorithm, it receives a <code>mkm</code> model as input and returns the updated model after <code>niter</code> iterations. There are also wrappers for the other two algorithms that could be used as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span><span class="kw">mkm</span>(doe, res, <span class="dt">modelcontrol =</span> <span class="kw">list</span>(<span class="dt">objective =</span> <span class="dv">1</span>:<span class="dv">2</span>, <span class="dt">lower =</span> <span class="kw">rep</span>(<span class="fl">0.1</span>, d)))
-niter &lt;-<span class="st"> </span><span class="dv">20</span>
-model.MEGO &lt;-<span class="st"> </span><span class="kw">MEGO</span>(model, fun, niter)
-model.HEGO &lt;-<span class="st"> </span><span class="kw">HEGO</span>(model, fun, niter)
-model.VMPF &lt;-<span class="st"> </span><span class="kw">VMPF</span>(model, fun, niter)</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">model &lt;-<span class="st"> </span><span class="kw">mkm</span>(doe, res, <span class="dt">modelcontrol =</span> <span class="kw">list</span>(<span class="dt">objective =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">lower =</span> <span class="kw">rep</span>(<span class="fl">0.1</span>, d)))</a>
+<a class="sourceLine" id="cb17-2" title="2">niter &lt;-<span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb17-3" title="3">model.MEGO &lt;-<span class="st"> </span><span class="kw">MEGO</span>(model, fun, niter)</a>
+<a class="sourceLine" id="cb17-4" title="4">model.HEGO &lt;-<span class="st"> </span><span class="kw">HEGO</span>(model, fun, niter)</a>
+<a class="sourceLine" id="cb17-5" title="5">model.VMPF &lt;-<span class="st"> </span><span class="kw">VMPF</span>(model, fun, niter)</a></code></pre></div>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
 <div id="refs" class="references">
 <div id="ref-GPareto">
-<p>Binois, Mickael, and Victor Picheny. 2016. <em>GPareto: Gaussian Processes for Pareto Front Estimation and Optimization</em>. <a href="https://cran.r-project.org//package=GPareto" class="uri">https://cran.r-project.org//package=GPareto</a>.</p>
+<p>Binois, Mickael, and Victor Picheny. 2016. <em>GPareto: Gaussian Processes for Pareto Front Estimation and Optimization</em>. <a href="https://cran.r-project.org//package=GPareto">https://cran.r-project.org//package=GPareto</a>.</p>
 </div>
 <div id="ref-R.LHS">
-<p>Carnell, Rob. 2012. <em>LHS: Latin Hypercube Samples</em>. <a href="https://cran.r-project.org//package=lhs" class="uri">https://cran.r-project.org//package=lhs</a>.</p>
+<p>Carnell, Rob. 2012. <em>LHS: Latin Hypercube Samples</em>. <a href="https://cran.r-project.org//package=lhs">https://cran.r-project.org//package=lhs</a>.</p>
 </div>
 <div id="ref-emmerich2011hypervolume">
 <p>Emmerich, Michael, André H Deutz, and Jan Willem Klinkenberg. 2011. “Hypervolume-Based Expected Improvement: Monotonicity Properties and Exact Computation.” In <em>2011 Ieee Congress of Evolutionary Computation (Cec)</em>, 2147–54. IEEE.</p>
 </div>
 <div id="ref-forrester2009recent">
-<p>Forrester, Alexander, and Andy J Keane. 2009. “Recent Advances in Surrogate-Based Optimization.” <em>Progress in Aerospace Sciences</em> 45 (1). Elsevier: 50–79.</p>
+<p>Forrester, Alexander, and Andy J Keane. 2009. “Recent Advances in Surrogate-Based Optimization.” <em>Progress in Aerospace Sciences</em> 45 (1): 50–79.</p>
 </div>
 <div id="ref-forrester2008engineering">
 <p>Forrester, Alexander, Andras Sobester, and Andy Keane. 2008. <em>Engineering Design via Surrogate Modelling: A Practical Guide</em>. Pondicherry, India: John Wiley &amp; Sons.</p>
 </div>
 <div id="ref-diceoptim">
-<p>Ginsbourger, D., V. Picheny, O. Roustant, with contributions by C. Chevalier, and T. Wagner. 2013. <em>DiceOptim: Kriging-Based Optimization for Computer Experiments</em>. <a href="https://cran.r-project.org//package=DiceOptim" class="uri">https://cran.r-project.org//package=DiceOptim</a>.</p>
+<p>Ginsbourger, D., V. Picheny, O. Roustant, with contributions by C. Chevalier, and T. Wagner. 2013. <em>DiceOptim: Kriging-Based Optimization for Computer Experiments</em>. <a href="https://cran.r-project.org//package=DiceOptim">https://cran.r-project.org//package=DiceOptim</a>.</p>
 </div>
 <div id="ref-hupkens2014faster">
-<p>Hupkens, Iris, Michael Emmerich, and André Deutz. 2014. “Faster Computation of Expected Hypervolume Improvement.” <em>ArXiv Preprint ArXiv:1408.7114</em>. LIACS.</p>
+<p>Hupkens, Iris, Michael Emmerich, and André Deutz. 2014. “Faster Computation of Expected Hypervolume Improvement.” <em>arXiv Preprint arXiv:1408.7114</em>. LIACS.</p>
 </div>
 <div id="ref-jones1998efficient">
 <p>Jones, Donald R, Matthias Schonlau, and William J Welch. 1998. “Efficient Global Optimization of Expensive Black-Box Functions.” <em>Journal of Global Optimization</em> 13 (4): 455–92.</p>
 </div>
 <div id="ref-knowles2006parego">
-<p>Knowles, Joshua. 2006. “ParEGO: A Hybrid Algorithm with on-Line Landscape Approximation for Expensive Multiobjective Optimization Problems.” <em>Evolutionary Computation, IEEE Transactions on</em> 10 (1). IEEE: 50–66.</p>
+<p>Knowles, Joshua. 2006. “ParEGO: A Hybrid Algorithm with on-Line Landscape Approximation for Expensive Multiobjective Optimization Problems.” <em>Evolutionary Computation, IEEE Transactions on</em> 10 (1): 50–66.</p>
 </div>
 <div id="ref-li2011improved">
-<p>Li, Mian. 2011. “An Improved Kriging-Assisted Multi-Objective Genetic Algorithm.” <em>Journal of Mechanical Design</em> 133 (7). American Society of Mechanical Engineers: 071008.</p>
+<p>Li, Mian. 2011. “An Improved Kriging-Assisted Multi-Objective Genetic Algorithm.” <em>Journal of Mechanical Design</em> 133 (7): 071008.</p>
 </div>
 <div id="ref-mco">
-<p>Mersmann, Olaf. 2014. <em>MCO: Multiple Criteria Optimization Algorithms and Related Functions</em>. <a href="https://cran.r-project.org//package=mco" class="uri">https://cran.r-project.org//package=mco</a>.</p>
+<p>Mersmann, Olaf. 2014. <em>MCO: Multiple Criteria Optimization Algorithms and Related Functions</em>. <a href="https://cran.r-project.org//package=mco">https://cran.r-project.org//package=mco</a>.</p>
 </div>
 <div id="ref-nowacki1980modelling">
 <p>Nowacki, Horst. 1980. “Modelling of Design Decisions for Cad.” In <em>Computer Aided Design Modelling, Systems Engineering, Cad-Systems</em>, 177–223. Springer.</p>
@@ -317,17 +528,20 @@ model.VMPF &lt;-<span class="st"> </span><span class="kw">VMPF</span>(model, fun
 <p>Roustant, Olivier, David Ginsbourger, and Yves Deville. 2012. “DiceKriging, DiceOptim: Two R Packages for the Analysis of Computer Experiments by Kriging-Based Metamodeling and Optimization.” <em>Journal of Statistical Software</em> 51 (1): 1–55.</p>
 </div>
 <div id="ref-sasena2002exploration">
-<p>Sasena, Michael J, Panos Papalambros, and Pierre Goovaerts. 2002. “Exploration of Metamodeling Sampling Criteria for Constrained Global Optimization.” <em>Engineering Optimization</em> 34 (3). Taylor &amp; Francis: 263–78.</p>
+<p>Sasena, Michael J, Panos Papalambros, and Pierre Goovaerts. 2002. “Exploration of Metamodeling Sampling Criteria for Constrained Global Optimization.” <em>Engineering Optimization</em> 34 (3): 263–78.</p>
 </div>
 <div id="ref-shimoyama2013kriging">
 <p>Shimoyama, Koji, Shinkyu Jeong, and Shigeru Obayashi. 2013. “Kriging-Surrogate-Based Optimization Considering Expected Hypervolume Improvement in Non-Constrained Many-Objective Test Problems.” In <em>Evolutionary Computation (Cec), 2013 Ieee Congress on</em>, 658–65. IEEE.</p>
 </div>
 <div id="ref-zitzler1998multiobjective">
-<p>Zitzler, Eckart, and Lothar Thiele. 1998. “Multiobjective Optimization Using Evolutionary Algorithms—a Comparative Case Study.” In <em>Parallel Problem Solving from Nature—PPSN V</em>, 292–301. Springer.</p>
+<p>Zitzler, Eckart, and Lothar Thiele. 1998. “Multiobjective Optimization Using Evolutionary Algorithms—a Comparative Case Study.” In <em>Parallel Problem Solving from Nature—Ppsn V</em>, 292–301. Springer.</p>
 </div>
 </div>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

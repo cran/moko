@@ -23,7 +23,7 @@ objective (\code{model@m == 1}).}
 (default: 1 with length = \code{model@d}),}
 
 \item{control}{An optional list of control parameters, some of them passed to
-the \code{\link[DiceOptim]{EI}} function. One can control:
+the EI function. One can control:
   \describe{
    \item{\code{minimization}}{logical specifying if EI is used in minimization or in maximization
    (default: \code{TRUE})}

@@ -36,7 +36,7 @@ model@j} where \code{model@m} are the number of objectives and
 \item{quiet}{Logical indicating the verbosity of the routine,}
 
 \item{control}{An optional list of control parameters, some of them passed to
-the \code{\link[DiceOptim]{EI}} function. One can control:
+the EI function. One can control:
   \describe{
    \item{\code{minimization}}{logical specifying if EI is used in minimization or in maximization
    (default: \code{TRUE})}

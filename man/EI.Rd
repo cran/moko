@@ -13,7 +13,7 @@ EI(x, model, control = NULL)
 objective (\code{model@m == 1}).}
 
 \item{control}{An optional list of control parameters, some of them passed to
-the \code{\link[DiceOptim]{EI}} function. One can control:
+the EI function. One can control:
   \describe{
    \item{\code{minimization}}{logical specifying if EI is used in minimization or in maximization
    (default: \code{TRUE})}
@@ -25,8 +25,8 @@ the \code{\link[DiceOptim]{EI}} function. One can control:
   }}
 }
 \description{
-This functions extends the \code{\link[DiceOptim]{EI}} function supplied by the package
-\code{\link{DiceOptim}}. This extension allows usage of multiple
+This functions extends the EI function supplied by the package
+archive package DiceOptim. This extension allows usage of multiple
 expensive constraints. The constraints are passed to the revamped EI function
 embedded inside the \code{\link{mkm}} object. Currently low-cost (explicit)
 constraints are not allowed.
@@ -38,7 +38,7 @@ constraints are uncorrelated. With that assumption in mind, a simple
 closed-form solution can be derived that consists in the product of the
 probability that each constraint will be met and the expected improvement of
 the objective. Another important consideration is that, by default, the value
-of the plugin passed to the \code{\link[DiceOptim]{EI}} is the best
+of the plugin passed to the EI is the best
 \emph{feasible} observed value.
 }
 \examples{

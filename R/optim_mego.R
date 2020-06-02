@@ -38,11 +38,65 @@ Tchebycheff <- function(y, s=100, rho=0.1){ #add lambda as parameter or someway 
   return((1 - rho) * apply(lambda * y, 2, max) + rho * apply(lambda * y, 2, sum))
 }
 
-#devtools::use_package("DiceOptim")
+
+DiceOptim_EI <- function (x, model, plugin = NULL, type = "UK", minimization = TRUE,
+          envir = NULL)
+{
+  # Direct import from Archived package DiceOptim
+  #
+  # Reason:
+  # Thus, package DiceOptim is now scheduled for archival on 2020-05-03,
+  # and archiving this will necessitate also archiving its strong reverse
+  # dependencies.
+  #
+  if (is.null(plugin)) {
+    if (minimization) {
+      plugin <- min(model@y)
+    }
+    else {
+      plugin <- -max(model@y)
+    }
+  }
+  m <- plugin
+  d <- length(x)
+  if (d != model@d) {
+    stop("x does not have the right size")
+  }
+  newdata.num <- as.numeric(x)
+  newdata <- data.frame(t(newdata.num))
+  colnames(newdata) = colnames(model@X)
+  predx <- DiceKriging::predict(object = model, newdata = newdata, type = type, checkNames = FALSE)
+  kriging.mean <- predx$mean
+  if (!minimization) {
+    kriging.mean <- -kriging.mean
+  }
+  kriging.sd <- predx$sd
+  xcr <- (m - kriging.mean)/kriging.sd
+  if (kriging.sd/sqrt(model@covariance@sd2) < 1e-06) {
+    res <- 0
+    xcr <- xcr.prob <- xcr.dens <- NULL
+  }
+  else {
+    xcr.prob <- stats::pnorm(xcr)
+    xcr.dens <- stats::dnorm(xcr)
+    res <- (m - kriging.mean) * xcr.prob + kriging.sd * xcr.dens
+  }
+  if (!is.null(envir)) {
+    assign("xcr", xcr, envir = envir)
+    assign("xcr.prob", xcr.prob, envir = envir)
+    assign("xcr.dens", xcr.dens, envir = envir)
+    assign("kriging.sd", kriging.sd, envir = envir)
+    assign("c", predx$c, envir = envir)
+    assign("Tinv.c", predx$Tinv.c, envir = envir)
+  }
+  return(res)
+}
+
+
 #' Constrained Expected Improvement
 #'
-#' This functions extends the \code{\link[DiceOptim]{EI}} function supplied by the package
-#' \code{\link{DiceOptim}}. This extension allows usage of multiple
+#' This functions extends the EI function supplied by the package
+#' archive package DiceOptim. This extension allows usage of multiple
 #' expensive constraints. The constraints are passed to the revamped EI function
 #' embedded inside the \code{\link{mkm}} object. Currently low-cost (explicit)
 #' constraints are not allowed.
@@ -53,14 +107,14 @@ Tchebycheff <- function(y, s=100, rho=0.1){ #add lambda as parameter or someway 
 #' closed-form solution can be derived that consists in the product of the
 #' probability that each constraint will be met and the expected improvement of
 #' the objective. Another important consideration is that, by default, the value
-#' of the plugin passed to the \code{\link[DiceOptim]{EI}} is the best
+#' of the plugin passed to the EI is the best
 #' \emph{feasible} observed value.
 #'
 #' @param x A vector representing the input for which one wishes to calculate EI.
 #' @param model An object of class \code{\link{mkm}}. This \code{model} must have a single
 #'  objective (\code{model@m == 1}).
 #' @param control An optional list of control parameters, some of them passed to
-#' the \code{\link[DiceOptim]{EI}} function. One can control:
+#' the EI function. One can control:
 #'   \describe{
 #'    \item{\code{minimization}}{logical specifying if EI is used in minimization or in maximization
 #'    (default: \code{TRUE})}
@@ -122,7 +176,7 @@ EI <- function(x, model, control = NULL){
   if (is.na(control$plugin))
     ei <- 1
   else
-    ei <- DiceOptim::EI(x, model=model@km[[model@objective]],
+    ei <- DiceOptim_EI(x, model=model@km[[model@objective]],
                         plugin = control$plugin,
                         type = model@control$type,
                         minimization = control$minimization,
